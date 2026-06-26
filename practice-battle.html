@@ -82,120 +82,138 @@ Next Question ➜
 </div>
 
 <script src="questions.js"></script>
-
 <script>
 
-let current=0;
+let current = 0;
+let score = 0;
+let xp = parseInt(localStorage.getItem("xp")) || 0;
 
-let score=0;
-  let xp = parseInt(localStorage.getItem("xp")) || 0;
-  const selectedSubject = localStorage.getItem("battleSubject") || "Mixed";
-  QUESTIONS.sort(() => Math.random() - 0.5);
-  let filteredQuestions = QUESTIONS;
+const selectedSubject =
+localStorage.getItem("battleSubject") || "Mixed";
+
+let filteredQuestions = [...QUESTIONS];
 
 if(selectedSubject !== "Mixed"){
-    filteredQuestions = QUESTIONS.filter(q => q.subject === selectedSubject);
+filteredQuestions =
+QUESTIONS.filter(q=>q.subject===selectedSubject);
 }
 
-filteredQuestions = filteredQuestions.sort(() => Math.random() - 0.5);
-function loadQuestion(){
-document.getElementById("subject").innerHTML =
-"📚 " + (filteredQuestions[current].subject || selectedSubject);
+filteredQuestions.sort(()=>Math.random()-0.5);
 
+if(filteredQuestions.length===0){
+document.getElementById("question").innerHTML =
+"No questions available for " + selectedSubject;
+throw new Error("No Questions");
+}
+
+function loadQuestion(){
+
+let q = filteredQuestions[current];
+
+document.getElementById("subject").innerHTML =
+"📚 " + (q.subject || selectedSubject);
 
 document.getElementById("questionNumber").innerHTML =
-"Question " + (current + 1) + " / " + filteredQuestions.length;
+"Question " + (current+1) + " / " + filteredQuestions.length;
 
-document.getElementById("question").innerText =
-filteredQuestions[current].question;
+document.getElementById("question").innerHTML =
+q.question;
 
-document.getElementById("A").innerText =
-filteredQuestions[current].options[0];
+document.getElementById("A").innerHTML =
+q.options[0];
 
-document.getElementById("B").innerText =
-  filteredQuestions[current].options[1];
-document.getElementById("C").innerText =
-filteredQuestions[current].options[2];
+document.getElementById("B").innerHTML =
+q.options[1];
 
-document.getElementById("D").innerText =
-filteredQuestions[current].options[3];
+document.getElementById("C").innerHTML =
+q.options[2];
 
-}
-  function checkAnswer(choice){
+document.getElementById("D").innerHTML =
+q.options[3];
 
-const ids = ["A","B","C","D"];
-
-if(choice === filteredQuestions[current].correct){
-    score++;
-    xp += 10;
-    localStorage.setItem("xp", xp);
-
-    document.getElementById(ids[choice]).style.background = "green";
-}else{
-    document.getElementById(ids[choice]).style.background = "red";
-    document.getElementById(ids[filteredQuestions[current].correct]).style.background = "green";
-}
-
-document.getElementById("score").innerHTML =
-"Score : " + score;
-
-document.getElementById("nextBtn").style.display = "block";
-
-let buttons = document.querySelectorAll(".option");
-
-buttons.forEach(btn=>{
-    btn.style.pointerEvents = "none";
-});
-
-  }
-
-  }
-  
-
-function nextQuestion(){
-
-current++;
-
-if(current >= filteredQuestions.length){
-
-document.querySelector(".card").innerHTML = `
-<h1>🏆 Battle Finished!</h1>
-<h2>Your Score: ${score} / ${filteredQuestions.length}</h2>
-<h3>⭐ XP Earned: ${score * 10}</h3>
-<h3>Total XP: ${xp}</h3>
-<button onclick="location.reload()">🔄 Play Again</button>
-`;
-
-
-let xp = parseInt(localStorage.getItem("xp")) || 0;
-xp += filteredQuestions.length * 2;
-localStorage.setItem("xp", xp);
-
-let coins = parseInt(localStorage.getItem("coins")) || 0;
-coins += score * 10;
-localStorage.setItem("coins", coins);
-
-let streak = parseInt(localStorage.getItem("streak")) || 0;
-streak++;
-localStorage.setItem("streak", streak);
-
-return;
-}
-
-let buttons = document.querySelectorAll(".option");
-
-buttons.forEach(btn=>{
+document.querySelectorAll(".option").forEach(btn=>{
 btn.style.background="";
 btn.style.pointerEvents="auto";
 });
 
 document.getElementById("nextBtn").style.display="none";
 
+}
+
+function checkAnswer(choice){
+
+const ids=["A","B","C","D"];
+
+document.querySelectorAll(".option").forEach(btn=>{
+btn.style.pointerEvents="none";
+});
+
+if(choice===filteredQuestions[current].correct){
+
+score++;
+xp+=10;
+localStorage.setItem("xp",xp);
+
+document.getElementById(ids[choice]).style.background="green";
+
+}else{
+
+document.getElementById(ids[choice]).style.background="red";
+
+document.getElementById(
+ids[filteredQuestions[current].correct]
+).style.background="green";
+
+}
+
+document.getElementById("score").innerHTML =
+"Score : "+score;
+
+document.getElementById("nextBtn").style.display="block";
+
+}
+
+function nextQuestion(){
+
+current++;
+
+if(current>=filteredQuestions.length){
+
+let coins=
+parseInt(localStorage.getItem("coins"))||0;
+
+coins+=score*10;
+
+localStorage.setItem("coins",coins);
+
+document.querySelector(".card").innerHTML=`
+
+<h1>🏆 Battle Finished!</h1>
+
+<h2>Your Score : ${score}/${filteredQuestions.length}</h2>
+
+<h3>⭐ XP : ${xp}</h3>
+
+<h3>🪙 Coins : ${coins}</h3>
+
+<button onclick="location.reload()">
+
+🔄 Play Again
+
+</button>
+
+`;
+
+return;
+
+}
+
 loadQuestion();
 
 }
 
 loadQuestion();
+
 </script>
 
 </body>
