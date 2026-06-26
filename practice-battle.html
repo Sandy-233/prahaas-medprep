@@ -53,6 +53,9 @@ color:black;
 
 <div class="card">
 
+<h3 id="questionNumber"></h3>
+  <h4 id="subject"></h4>
+
 <h2 id="question">Loading...</h2>
 
 <button id="A" onclick="checkAnswer(0)"></button>
@@ -68,7 +71,15 @@ color:black;
 <h3 id="score">
 Score : 0
 </h3>
+<div id="result" style="margin-top:20px;font-size:20px;"></div>
 
+<button id="nextBtn"
+onclick="nextQuestion()"
+style="display:none;">
+
+Next Question ➜
+
+</button>
 </div>
 
 <script src="questions.js"></script>
@@ -76,57 +87,88 @@ Score : 0
 <script>
 
 let current=0;
+  QUESTIONS.sort(() => Math.random() - 0.5);
 
 let score=0;
-
+  
 function loadQuestion(){
 
-document.getElementById("question").innerText=
+document.getElementById("subject").innerHTML =
+"📚 " + QUESTIONS[current].subject;
+
+document.getElementById("questionNumber").innerHTML =
+"Question " + (current + 1) + " / " + QUESTIONS.length;
+
+document.getElementById("question").innerText =
 QUESTIONS[current].question;
 
-document.getElementById("A").innerText=
+document.getElementById("A").innerText =
 QUESTIONS[current].options[0];
 
-document.getElementById("B").innerText=
+document.getElementById("B").innerText =
 QUESTIONS[current].options[1];
 
-document.getElementById("C").innerText=
+document.getElementById("C").innerText =
 QUESTIONS[current].options[2];
 
-document.getElementById("D").innerText=
+document.getElementById("D").innerText =
 QUESTIONS[current].options[3];
 
 }
-
-function checkAnswer(choice){
+  function checkAnswer(choice){
 
 if(choice===QUESTIONS[current].correct){
-
-score++;
-
+    score++;
+    document.getElementById(choice).style.background="green";
+}else{
+    document.getElementById(choice).style.background="red";
+    document.getElementById(QUESTIONS[current].correct).style.background="green";
 }
+
+document.getElementById("score").innerHTML =
+"Score : " + score;
+
+document.getElementById("nextBtn").style.display="block";
+
+let buttons=document.querySelectorAll(".option");
+
+buttons.forEach(btn=>{
+    btn.style.pointerEvents="none";
+});
+
+  }
+  
+
+function nextQuestion(){
 
 current++;
 
-document.getElementById("score").innerText=
-"Score : "+score;
+if(current >= QUESTIONS.length){
 
-if(current>=QUESTIONS.length){
-
-document.querySelector(".card").innerHTML=
-
-"<h1>Battle Finished</h1><h2>Your Score : "+score+"/"+QUESTIONS.length+"</h2>";
+document.querySelector(".card").innerHTML = `
+<h1>🏆 Battle Finished!</h1>
+<h2>Your Score: ${score} / ${QUESTIONS.length}</h2>
+<button onclick="location.reload()">🔄 Play Again</button>
+`;
 
 return;
 
 }
 
+let buttons = document.querySelectorAll(".option");
+
+buttons.forEach(btn=>{
+btn.style.background="";
+btn.style.pointerEvents="auto";
+});
+
+document.getElementById("nextBtn").style.display="none";
+
 loadQuestion();
 
 }
 
 loadQuestion();
-
 </script>
 
 </body>
