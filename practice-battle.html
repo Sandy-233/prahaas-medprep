@@ -127,11 +127,12 @@ if(choice===filteredQuestions[current].correct){
     score++;
   xp += 10;
 localStorage.setItem("xp", xp);
-    document.getElementById(choice).style.background="green";
-}else{
-    document.getElementById(choice).style.background="red";
-    document.getElementById(filteredQuestions[current].correct).style.background="green";
-}
+    const ids = ["A","B","C","D"];
+
+document.getElementById(ids[choice]).style.background =
+choice === filteredQuestions[current].correct ? "green" : "red";
+
+document.getElementById(ids[filteredQuestions[current].correct]).style.background = "green";
 
 document.getElementById("score").innerHTML =
 "Score : " + score;
@@ -161,7 +162,6 @@ document.querySelector(".card").innerHTML = `
 <button onclick="location.reload()">🔄 Play Again</button>
 `;
 
-document.querySelector(".card").innerHTML = `...`;
 
 let xp = parseInt(localStorage.getItem("xp")) || 0;
 xp += filteredQuestions.length * 2;
