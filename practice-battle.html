@@ -101,7 +101,7 @@ filteredQuestions = filteredQuestions.sort(() => Math.random() - 0.5);
 function loadQuestion(){
 
 document.getElementById("subject").innerHTML =
-"📚 " + filteredQuestions[current].subject || selectedSubject);
+"📚 " + (filteredQuestions[current].subject || selectedSubject);
 
 document.getElementById("questionNumber").innerHTML =
 "Question " + (current + 1) + " / " + filteredQuestions.length;
@@ -151,30 +151,31 @@ function nextQuestion(){
 
 current++;
 
-if(current >= QUESTIONS.length){
+if(current >= filteredQuestions.length){
 
 document.querySelector(".card").innerHTML = `
 <h1>🏆 Battle Finished!</h1>
-<h2>Your Score: ${score} / ${QUESTIONS.length}</h2>
+<h2>Your Score: ${score} / ${filteredQuestions.length}</h2>
 <h3>⭐ XP Earned: ${score * 10}</h3>
 <h3>Total XP: ${xp}</h3>
 <button onclick="location.reload()">🔄 Play Again</button>
 `;
 
-return;
+document.querySelector(".card").innerHTML = `...`;
+
 let xp = parseInt(localStorage.getItem("xp")) || 0;
-xp += QUESTIONS.length * 2;
+xp += filteredQuestions.length * 2;
 localStorage.setItem("xp", xp);
 
 let coins = parseInt(localStorage.getItem("coins")) || 0;
 coins += score * 10;
 localStorage.setItem("coins", coins);
-  document.getElementById("streak").innerText =
-localStorage.getItem("streak") || 0;
 
 let streak = parseInt(localStorage.getItem("streak")) || 0;
 streak++;
 localStorage.setItem("streak", streak);
+
+return;
 }
 
 let buttons = document.querySelectorAll(".option");
