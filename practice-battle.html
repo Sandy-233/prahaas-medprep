@@ -87,14 +87,22 @@ Next Question ➜
 <script>
 
 let current=0;
-  QUESTIONS.sort(() => Math.random() - 0.5);
+  QUESTI
 
 let score=0;
-  
+  const selectedSubject = localStorage.getItem("battleSubject") || "Mixed";
+  QUESTIONS.sort(() => Math.random() - 0.5);
+  let filteredQuestions = QUESTIONS;
+
+if(selectedSubject !== "Mixed"){
+    filteredQuestions = QUESTIONS.filter(q => q.subject === selectedSubject);
+}
+
+QUESTIONS = filteredQuestions.sort(() => Math.random() - 0.5);
 function loadQuestion(){
 
 document.getElementById("subject").innerHTML =
-"📚 " + QUESTIONS[current].subject;
+"📚 " + (QUESTIONS[current].subject || selectedSubject);
 
 document.getElementById("questionNumber").innerHTML =
 "Question " + (current + 1) + " / " + QUESTIONS.length;
@@ -107,7 +115,6 @@ QUESTIONS[current].options[0];
 
 document.getElementById("B").innerText =
 QUESTIONS[current].options[1];
-
 document.getElementById("C").innerText =
 QUESTIONS[current].options[2];
 
