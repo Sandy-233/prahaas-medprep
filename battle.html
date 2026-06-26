@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BattleMed Quiz</title>
+
+<style>
+
+body{
+background:#07131d;
+color:white;
+font-family:Arial;
+padding:20px;
+}
+
+.card{
+background:#122231;
+padding:25px;
+border-radius:20px;
+max-width:700px;
+margin:auto;
+}
+
+button{
+width:100%;
+padding:15px;
+margin-top:12px;
+font-size:18px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+}
+
+h2{
+color:#00ff99;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h2 id="question">
+Loading...
+</h2>
+
+<button onclick="answer(0)" id="a"></button>
+
+<button onclick="answer(1)" id="b"></button>
+
+<button onclick="answer(2)" id="c"></button>
+
+<button onclick="answer(3)" id="d"></button>
+
+<h3 id="score">
+Score : 0
+</h3>
+
+</div>
+
+<script>
+
+const questions=[
+
+{
+
+question:"Largest organ of body?",
+
+options:[
+"Heart",
+"Skin",
+"Liver",
+"Lung"
+],
+
+correct:1
+
+},
+
+{
+
+question:"Normal adult pulse?",
+
+options:[
+"72",
+"40",
+"110",
+"130"
+],
+
+correct:0
+
+}
+
+];
+
+let current=0;
+
+let score=0;
+
+function loadQuestion(){
+
+document.getElementById("question").innerText=questions[current].question;
+
+document.getElementById("a").innerText=questions[current].options[0];
+
+document.getElementById("b").innerText=questions[current].options[1];
+
+document.getElementById("c").innerText=questions[current].options[2];
+
+document.getElementById("d").innerText=questions[current].options[3];
+
+}
+
+function answer(choice){
+
+if(choice==questions[current].correct){
+
+score++;
+
+}
+
+current++;
+
+document.getElementById("score").innerText="Score : "+score;
+
+if(current<questions.length){
+
+loadQuestion();
+
+}else{
+
+document.querySelector(".card").innerHTML=
+
+"<h1>Battle Finished</h1><h2>Your Score : "+score+"/"+questions.length+"</h2>";
+
+}
+
+}
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
