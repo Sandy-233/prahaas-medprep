@@ -57,14 +57,13 @@ color:black;
   <h4 id="subject"></h4>
 
 <h2 id="question">Loading...</h2>
+<button id="A" class="option" onclick="checkAnswer(0)"></button>
 
-<button id="A" onclick="checkAnswer(0)"></button>
+<button id="B" class="option" onclick="checkAnswer(1)"></button>
 
-<button id="B" onclick="checkAnswer(1)"></button>
+<button id="C" class="option" onclick="checkAnswer(2)"></button>
 
-<button id="C" onclick="checkAnswer(2)"></button>
-
-<button id="D" onclick="checkAnswer(3)"></button>
+ <button id="D" class="option" onclick="checkAnswer(3)"></button>
 
 <br>
 
@@ -87,7 +86,6 @@ Next Question ➜
 <script>
 
 let current=0;
-  QUESTI
 
 let score=0;
   let xp = parseInt(localStorage.getItem("xp")) || 0;
