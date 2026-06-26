@@ -90,6 +90,7 @@ let current=0;
   QUESTI
 
 let score=0;
+  let xp = parseInt(localStorage.getItem("xp")) || 0;
   const selectedSubject = localStorage.getItem("battleSubject") || "Mixed";
   QUESTIONS.sort(() => Math.random() - 0.5);
   let filteredQuestions = QUESTIONS;
@@ -126,6 +127,8 @@ QUESTIONS[current].options[3];
 
 if(choice===QUESTIONS[current].correct){
     score++;
+  xp += 10;
+localStorage.setItem("xp", xp);
     document.getElementById(choice).style.background="green";
 }else{
     document.getElementById(choice).style.background="red";
@@ -155,6 +158,8 @@ if(current >= QUESTIONS.length){
 document.querySelector(".card").innerHTML = `
 <h1>🏆 Battle Finished!</h1>
 <h2>Your Score: ${score} / ${QUESTIONS.length}</h2>
+<h3>⭐ XP Earned: ${score * 10}</h3>
+<h3>Total XP: ${xp}</h3>
 <button onclick="location.reload()">🔄 Play Again</button>
 `;
 
