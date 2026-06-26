@@ -1,45 +1,152 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Pathology - Prahaas MedPrep</title>
+<title>Pathology</title>
+
+<style>
+body{
+background:#0b0f17;
+font-family:Arial,sans-serif;
+color:white;
+text-align:center;
+margin:0;
+padding:20px;
+}
+
+h1{
+font-size:48px;
+color:#00ff99;
+}
+
+h2{
+font-size:32px;
+margin-top:40px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+}
+
+.card{
+background:#1b2330;
+padding:20px;
+margin:20px;
+border-radius:15px;
+}
+
+.button{
+display:block;
+background:#00ff99;
+color:black;
+text-decoration:none;
+font-size:28px;
+font-weight:bold;
+padding:20px;
+margin:15px auto;
+width:85%;
+border-radius:15px;
+}
+
+.button:hover{
+background:#00cc77;
+}
+
+.small{
+font-size:18px;
+color:#cccccc;
+}
+</style>
+
 </head>
 
-<body style="background:#0b0f17;color:white;font-family:Arial;text-align:center;padding:40px;">
+<body>
+
+<div class="container">
 
 <h1>🧬 Pathology</h1>
 
-<h2>Welcome to Pathology</h2>
+<p class="small">
+Everything for NEET PG + USMLE in one place
+</p>
 
-<p>This page will contain:</p>
+<div class="card">
 
-<h2>General Pathology</h2>
+<h2>📖 Subject Notes</h2>
 
-<input type="checkbox"> Cell Injury<br><br>
+<a class="button" href="#">General Pathology</a>
 
-<input type="checkbox"> Inflammation<br><br>
+<a class="button" href="#">Systemic Pathology</a>
 
-<input type="checkbox"> Hemodynamics<br><br>
+</div>
 
-<input type="checkbox"> Neoplasia<br><br>
+<div class="card">
 
-<input type="checkbox"> Immunopathology<br><br>
+<h2>❓ MCQs</h2>
+
+<a class="button" href="#">Chapter-wise MCQs</a>
+
+<a class="button" href="#">Image Based MCQs</a>
+
+<a class="button" href="#">Case Based MCQs</a>
+
+<a class="button" href="#">Rapid Revision MCQs</a>
+
+</div>
+
+<div class="card">
+
+<h2>📚 PYQs</h2>
+
+<a class="button" href="#">NEET PG PYQs</a>
+
+<a class="button" href="#">INI-CET PYQs</a>
+
+<a class="button" href="#">FMGE PYQs</a>
+
+</div>
+
+<div class="card">
+
+<h2>📕 Textbooks</h2>
+
+<a class="button" href="#">Robbins Notes</a>
+
+<a class="button" href="#">Ramdas Nayak</a>
+
+<a class="button" href="#">Harsh Mohan</a>
+
+</div>
+
+<div class="card">
+
+<h2>🎥 Video Lectures</h2>
+
+<a class="button" href="#">Watch Videos</a>
+
+</div>
+
+<div class="card">
+
+<h2>📈 Progress</h2>
+
+<a class="button" href="#">Track Progress</a>
+
+</div>
+
+<div class="card">
+
+<h2>🎯 Daily Goal</h2>
+
+<a class="button" href="#">Today's Goal</a>
+
+</div>
+
 <br>
 
-<a href="dashboard.html">
-<button style="padding:15px 30px;background:#00ff99;border:none;border-radius:12px;font-size:18px;">
-⬅ Back to Dashboard
-</button>
-</a>
-<script>
-const boxes = document.querySelectorAll("input[type='checkbox']");
+<a class="button" href="dashboard.html">⬅ Back to Dashboard</a>
 
-boxes.forEach((box, index) => {
-    box.checked = localStorage.getItem("pathology" + index) === "true";
+</div>
 
-    box.addEventListener("change", () => {
-        localStorage.setItem("pathology" + index, box.checked);
-    });
-});
-</script>
 </body>
 </html>
