@@ -190,17 +190,17 @@ color:#bbbbbb;
 
 <p><b>Username:</b> Prahaas</p>
 
-<p><b>Level:</b> 1</p>
+<p><b>Level:</b> <span id="level">1</span></p>
 
-<p><b>XP:</b> 0 / 100</p>
+<p><b>XP:</b> <span id="xp">0</span></p>
 
-<p><b>Rank:</b> 🥉 Bronze</p>
+<p><b>Rank:</b> <span id="rank">🥉 Bronze</span></p>
 
-<p><b>Coins:</b> 🪙 0</p>
+<p><b>Coins:</b> 🪙 <span id="coins">0</span></p>
+<p><b>Study Streak:</b> 🔥 <span id="streak">0</span> Days</p>
+<p><b>Battle Wins:</b> <span id="wins">0</span></p>
 
-<p><b>Battle Wins:</b> 0</p>
-
-<p><b>Battle Losses:</b> 0</p>
+<p><b>Battle Losses:</b> <span id="losses">0</span></p>
 
 <div class="progress">
 <div class="fill" style="width:0%;"></div>
@@ -211,17 +211,12 @@ color:#bbbbbb;
 
 <h2>🏅 Achievements</h2>
 
-<p>🔒 First Battle</p>
-
-<p>🔒 Win 10 Battles</p>
-
-<p>🔒 Win 50 Battles</p>
-
-<p>🔒 7 Day Study Streak</p>
-
-<p>🔒 Top 100 Rank</p>
-
-<p>🔒 Clinical Case Master</p>
+<p id="a1">🔒 First Battle</p>
+<p id="a2">🔒 Win 10 Battles</p>
+<p id="a3">🔒 Win 50 Battles</p>
+<p id="a4">🔒 7 Day Study Streak</p>
+<p id="a5">🔒 Top 100 Rank</p>
+<p id="a6">🔒 Clinical Case Master</p>
 
 </div>
   <div class="card">
@@ -544,7 +539,43 @@ function leaderboard(){
 alert("Global Rankings Coming Soon");
 
 }
+document.getElementById("xp").innerText =
+localStorage.getItem("xp") || 0;
+document.getElementById("coins").innerText =
+localStorage.getItem("coins") || 0;
+  let xp = parseInt(localStorage.getItem("xp")) || 0;
+let level = Math.floor(xp / 100) + 1;
 
+document.getElementById("level").innerText = level;
+  let rank = "🥉 Bronze";
+
+if(level >= 5) rank = "🥈 Silver";
+if(level >= 10) rank = "🥇 Gold";
+if(level >= 20) rank = "💎 Platinum";
+if(level >= 30) rank = "👑 Diamond";
+if(level >= 50) rank = "🔥 Master";
+if(level >= 100) rank = "🌟 Legend";
+
+document.getElementById("rank").innerText = rank;
+  let wins = parseInt(localStorage.getItem("wins")) || 0;
+let losses = parseInt(localStorage.getItem("losses")) || 0;
+
+document.getElementById("wins").innerText = wins;
+document.getElementById("losses").innerText = losses;
+  if (wins >= 1)
+    document.getElementById("a1").innerText = "🏆 First Battle";
+
+if (wins >= 10)
+    document.getElementById("a2").innerText = "🏆 Win 10 Battles";
+
+if (wins >= 50)
+    document.getElementById("a3").innerText = "🏆 Win 50 Battles";
+
+if (level >= 30)
+    document.getElementById("a5").innerText = "🏆 Top Rank";
+
+if (coins >= 1000)
+    document.getElementById("a6").innerText = "🏆 Clinical Case Master";
 </script>
 
 </body>
