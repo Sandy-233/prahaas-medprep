@@ -30,6 +30,16 @@
 ⬅ Back to Dashboard
 </button>
 </a>
+<script>
+const boxes = document.querySelectorAll("input[type='checkbox']");
 
+boxes.forEach((box, index) => {
+    box.checked = localStorage.getItem("pathology" + index) === "true";
+
+    box.addEventListener("change", () => {
+        localStorage.setItem("pathology" + index, box.checked);
+    });
+});
+</script>
 </body>
 </html>
