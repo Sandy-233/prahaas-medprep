@@ -153,7 +153,7 @@ transform:scale(1.05);
 <header>
 
 <div class="logo">
-🏥 Prahaas MedPrep
+🏥 BattleMed
 </div>
 
 <nav>
@@ -166,7 +166,7 @@ transform:scale(1.05);
 
 <section class="hero">
 
-<h1>Welcome Prahaas 👋</h1>
+<h1 id="welcomeUser">Welcome 👋</h1>
 
 <p>Your Personal NEET PG + USMLE Dashboard</p>
 
@@ -464,7 +464,7 @@ Random Battle • Friend Challenge • Global Rankings
 </div>
 <footer>
 
-© 2026 Prahaas MedPrep ❤️
+© 2026 BattleMed ❤️
 
 </footer>
 <script>
@@ -522,5 +522,9 @@ updateTimer();
 
 </script>
 </script>
+  <script>
+const username = localStorage.getItem("username") || "Student";
+document.getElementById("welcomeUser").innerHTML = "Welcome " + username + " 👋";
+  </script>
 </body>
 </html>
