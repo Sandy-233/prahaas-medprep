@@ -210,6 +210,9 @@ color:#bbbbbb;
   <div class="card">
 
 <h2>🏅 Achievements</h2>
+    if (level >= 30)
+    if (streak >= 7)
+    document.getElementById("a4").innerText = "🏆 7 Day Study Streak";
 
 <p id="a1">🔒 First Battle</p>
 <p id="a2">🔒 Win 10 Battles</p>
@@ -576,6 +579,18 @@ if (level >= 30)
 
 if (coins >= 1000)
     document.getElementById("a6").innerText = "🏆 Clinical Case Master";
+  let streak = parseInt(localStorage.getItem("streak")) || 0;
+document.getElementById("streak").innerText = streak;
+  let today = new Date().toDateString();
+let lastStudy = localStorage.getItem("lastStudy");
+
+if (lastStudy !== today) {
+    streak++;
+    localStorage.setItem("streak", streak);
+    localStorage.setItem("lastStudy", today);
+}
+
+document.getElementById("streak").innerText = streak;
 </script>
 
 </body>
