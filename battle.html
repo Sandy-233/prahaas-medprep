@@ -62,7 +62,7 @@ Score : 0
 
 </div>
 
-<script>
+<script type="module">
 
 const questions=[
 
@@ -118,12 +118,17 @@ document.getElementById("d").innerText=questions[current].options[3];
 
 function answer(choice){
 
+async function answer(choice){
+
 if(choice==questions[current].correct){
 
 score++;
 
-}
+await updateDoc(roomRef,{
+score1:score
+});
 
+}
 current++;
 
 document.getElementById("score").innerText="Score : "+score;
@@ -164,14 +169,7 @@ const room = snapshot.data();
 console.log(room);
 
 });
-  await updateDoc(roomRef, {
-score1: score1
-});
-  await updateDoc(roomRef, {
-score2: score2
-});
-
-</script>
+  
 
 </body>
 </html>
