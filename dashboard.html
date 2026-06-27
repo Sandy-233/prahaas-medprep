@@ -452,7 +452,7 @@ resetTimer();
 </script>
  
   <script type="module">
-    import { auth, signOut } from "./firebase.js";
+    import { auth, signOut, db, doc, setDoc } from "./firebase.js";
 
 document.getElementById("logoutBtn").addEventListener("click", async () => {
     await signOut(auth);
@@ -460,10 +460,18 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
 });
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
     if (user) {
         document.getElementById("welcomeUser").innerHTML =
             "Welcome " + user.displayName + " 👋";
+      await setDoc(doc(db, "users", user.uid), {
+    name: user.displayName,
+    email: user.email,
+    photo: user.photoURL,
+    xp: 0,
+    coins: 0,
+    streak: 0
+}, { merge: true });
       document.getElementById("profilePic").src = user.photoURL;
 document.getElementById("profileEmail").innerHTML = user.email;
     } else {
