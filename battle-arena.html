@@ -490,7 +490,7 @@ Win Rate : 0%
 </div>
 
 </div>
-
+7
 <script>
   import { auth, db } from "./firebase.js";
 
@@ -501,12 +501,68 @@ setDoc,
 getDocs,
 deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+  const playersRef = collection(db, "onlinePlayers");
+
+const myId = auth.currentUser.uid;
+
+await setDoc(doc(playersRef, myId), {
+    online: true,
+    time: Date.now()
+});
+
+window.addEventListener("beforeunload", async () => {
+    await deleteDoc(doc(playersRef, myId));
+});
+
+onSnapshot(playersRef, (snapshot) => {
+    document.getElementById("onlinePlayers").innerHTML =
+        snapshot.size + " Players Online";
+});
 
 function randomBattle(){
+async function randomBattle() {
 
-alert("Searching for players...");
+const waitingRef = collection(db, "waitingPlayers");
 
+const myId = auth.currentUser.uid;
+
+await setDoc(doc(waitingRef, myId), {
+    uid: myId,
+    name: auth.currentUser.displayName,
+    joined: Date.now()
+});
+
+alert("Searching for opponent...");
 }
+  onSnapshot(collection(db, "waitingPlayers"), async (snapshot) => {
+
+if (snapshot.size < 2) return;
+
+const players = [];
+
+snapshot.forEach(doc => players.push(doc));
+
+const me = players.find(p => p.id === auth.currentUser.uid);
+
+const opponent = players.find(p => p.id !== auth.currentUser.uid);
+
+if (!me || !opponent) return;
+
+const roomId = [me.id, opponent.id].sort().join("_");
+
+await setDoc(doc(db, "battleRooms", roomId), {
+    player1: me.id,
+    player2: opponent.id,
+    started: true,
+    created: Date.now()
+});
+    await deleteDoc(doc(db, "waitingPlayers", me.id));
+await deleteDoc(doc(db, "waitingPlayers", opponent.id));
+
+window.location.href = "battle.html?room=" + roomId;
+
+});
+
 
 function friendChallenge(){
 
