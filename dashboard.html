@@ -165,7 +165,7 @@ transform:scale(1.05);
 
 <section class="hero">
 
-<h1 id="welcomeUser">Welcome 👋</h1>
+<h1 id="welcomeUser">Welcome Student 👋</h1>
 
 <p>Your Personal NEET PG + USMLE Dashboard</p>
 
@@ -197,11 +197,6 @@ transform:scale(1.05);
 <button onclick="resetTimer()">🔄 Reset</button>
 <h1 id="timer">00:25:00</h1>
 
-<button onclick="startTimer()">▶ Start</button>
-
-<button onclick="pauseTimer()">⏸ Pause</button>
-
-<button onclick="resetTimer()">🔄 Reset</button>
 
 </div>
 
@@ -450,9 +445,19 @@ function resetTimer() {
 resetTimer();
 
 </script>
-  <script>
-const username = localStorage.getItem("username") || "Student";
-document.getElementById("welcomeUser").innerHTML = "Welcome " + username + " 👋";
-  </script>
+ 
+  <script type="module">
+import { auth } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        document.getElementById("welcomeUser").innerHTML =
+            "Welcome " + user.displayName + " 👋";
+    } else {
+        window.location.href = "login.html";
+    }
+});
+</script>
 </body>
 </html>
