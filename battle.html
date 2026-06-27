@@ -143,6 +143,33 @@ document.querySelector(".card").innerHTML=
 }
 
 loadQuestion();
+  import { auth, db } from "./firebase.js";
+
+import {
+doc,
+getDoc,
+updateDoc,
+onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+  const params = new URLSearchParams(window.location.search);
+const roomId = params.get("room");
+
+const roomRef = doc(db, "battleRooms", roomId);
+  onSnapshot(roomRef, (snapshot) => {
+
+if (!snapshot.exists()) return;
+
+const room = snapshot.data();
+
+console.log(room);
+
+});
+  await updateDoc(roomRef, {
+score1: score1
+});
+  await updateDoc(roomRef, {
+score2: score2
+});
 
 </script>
 
