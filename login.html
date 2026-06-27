@@ -114,7 +114,7 @@ document.getElementById("googleLogin").addEventListener("click", async () => {
     await signInWithPopup(auth, provider);
    const result = await signInWithPopup(auth, provider);
 console.log(result.user);
-window.location.href = "index.html";
+window.location.href = "dashboard.html";
   } catch (e) {
     alert(e.message);
   }
