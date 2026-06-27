@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>BattleMed</title>
+  <button id="googleLogin">🔐 Sign in with Google</button>
+  
 
 <style>
 
@@ -310,6 +312,18 @@ margin-top:50px;
 © 2026 BattleMed | Designed by Prahaas ❤️
 
 </footer>
+  <script type="module">
+import { auth, provider, signInWithPopup } from "./firebase.js";
+
+document.getElementById("googleLogin").addEventListener("click", async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    alert("Welcome " + result.user.displayName + "!");
+  } catch (err) {
+    alert(err.message);
+  }
+});
+</script>
 
 </body>
 
