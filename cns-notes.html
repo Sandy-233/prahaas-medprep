@@ -57,61 +57,26 @@ display:none;
 </button>
 
 <div id="images"></div>
-  <script type="module">
+  <div id="images">
 
-import {
-storage,
-ref,
-uploadBytes,
-getDownloadURL,
-listAll
-} from "./firebase.js";
+<img src="https://raw.githubusercontent.com/Sandy-233/BattleMed/main/notes/CNS/file_00000000d23872068ab6233739139c62.png" width="100%" style="margin-top:20px;border-radius:12px;">
 
-const fileInput = document.getElementById("fileInput");
-const images = document.getElementById("images");
+<img src="https://raw.githubusercontent.com/Sandy-233/BattleMed/main/notes/CNS/file_00000000b7d0720b82d2e5ea7fc3939c.png" width="100%" style="margin-top:20px;border-radius:12px;">
 
-fileInput.addEventListener("change", async () => {
+<img src="https://raw.githubusercontent.com/Sandy-233/BattleMed/main/notes/CNS/file_00000000b1147207a32445fa5148725c.png" width="100%" style="margin-top:20px;border-radius:12px;">
 
-const file = fileInput.files[0];
+<img src="https://raw.githubusercontent.com/Sandy-233/BattleMed/main/notes/CNS/file_00000000582471fa9546877b9b9df243.png" width="100%" style="margin-top:20px;border-radius:12px;">
 
-if (!file) return;
+<img src="https://raw.githubusercontent.com/Sandy-233/BattleMed/main/notes/CNS/file_00000000069472069221afec2268e99a.png" width="100%" style="margin-top:20px;border-radius:12px;">
 
-const storageRef = ref(storage, "notes/CNS/" + file.name);
+  </div>
+<h1 style="color:#00ff99;text-align:center;">
+🧠 Central Nervous System (CNS)
+</h1>
 
-await uploadBytes(storageRef, file);
-
-alert("Upload Successful!");
-
-loadImages();
-
-});
-
-async function loadImages(){
-
-images.innerHTML = "";
-
-const folderRef = ref(storage, "notes/CNS");
-
-const result = await listAll(folderRef);
-
-for(const item of result.items){
-
-const url = await getDownloadURL(item);
-
-const img = document.createElement("img");
-
-img.src = url;
-
-images.appendChild(img);
-
-}
-
-}
-
-loadImages();
-
-  </script>
-<h1>🧠 CNS Pathology Notes</h1>
+<h3 style="text-align:center;color:#cccccc;">
+Robbins Pathology Notes
+</h3>
 
 <input type="file" id="fileInput" accept="image/*" hidden>
 
@@ -121,7 +86,26 @@ loadImages();
 
 <br><br>
 
-<div id="images"></div>
+<div id="images">
+
+<img src="https://raw.githubusercontent.com/Sandy-233/BattleMed/main/notes/CNS/file_00000000d23872068ab6233739139c62.png"
+style="width:100%;max-width:900px;display:block;margin:25px auto;border-radius:15px;box-shadow:0 0 20px rgba(0,255,170,.3);">
+
+<img src="https://raw.githubusercontent.com/Sandy-233/BattleMed/main/notes/CNS/file_00000000b7d0720b82d2e5ea7fc3939c.png"
+style="width:100%;max-width:900px;display:block;margin:25px auto;border-radius:15px;box-shadow:0 0 20px rgba(0,255,170,.3);">
+
+<img src="https://raw.githubusercontent.com/Sandy-233/BattleMed/main/notes/CNS/file_00000000b1147207a32445fa5148725c.png"
+style="width:100%;max-width:900px;display:block;margin:25px auto;border-radius:15px;box-shadow:0 0 20px rgba(0,255,170,.3);">
+
+<img src="https://raw.githubusercontent.com/Sandy-233/BattleMed/main/notes/CNS/file_00000000582471fa9546877b9b9df243.png"
+style="width:100%;max-width:900px;display:block;margin:25px auto;border-radius:15px;box-shadow:0 0 20px rgba(0,255,170,.3);">
+
+<img src="https://raw.githubusercontent.com/Sandy-233/BattleMed/main/notes/CNS/file_00000000069472069221afec2268e99a.png"
+style="width:100%;max-width:900px;display:block;margin:25px auto;border-radius:15px;box-shadow:0 0 20px rgba(0,255,170,.3);">
+
+</div>
+  
+</div>
 </body>
 
 </html>
