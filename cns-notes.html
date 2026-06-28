@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CNS Notes - BattleMed</title>
+
+<style>
+
+body{
+background:#07131d;
+color:white;
+font-family:Arial;
+text-align:center;
+padding:20px;
+}
+
+h1{
+color:#00ff99;
+}
+
+img{
+width:95%;
+max-width:700px;
+margin-top:20px;
+border-radius:15px;
+}
+
+button{
+
+background:#00ff99;
+border:none;
+padding:15px 25px;
+font-size:18px;
+border-radius:12px;
+cursor:pointer;
+
+}
+
+input{
+display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🧠 CNS Notes</h1>
+
+<input type="file" id="fileInput" accept="image/*">
+
+<button onclick="document.getElementById('fileInput').click()">
+
+📤 Upload Note
+
+</button>
+
+<div id="images"></div>
+
+</body>
+
+</html>
